@@ -13,7 +13,7 @@ def save(img,name, bbox, width=180,height=227):
     rand_num = randint(1, 1000)
     my_time = datetime.datetime.now()
     my_time = my_time.strftime("%Y-%m-%d-%H-%M-%S-%f")
-    cv2.imwrite(f"{name}-{my_time}.jpg", imgCrop)
+    cv2.imwrite(f"{name}{my_time}.jpg", imgCrop)
 
 def faces(frame):
     frame = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
@@ -24,8 +24,8 @@ def faces(frame):
     for counter,face in enumerate(faces):
         x1, y1 = abs(face.left()), abs(face.top())
         x2, y2 = abs(face.right()), abs(face.bottom())
-        save(frame,new_path+str(counter),(abs(x1-xfit),abs(y1-yfit),x2+xfit,y2+yfit))
-        save(frame, new_path + str(counter), (x1, y1 , x2 , y2))
+        save(frame,new_path,(abs(x1-xfit),abs(y1-yfit),x2+xfit,y2+yfit))
+
 
     #frame = cv2.resize(frame,(800,800))
     #cv2.waitKey(0)
