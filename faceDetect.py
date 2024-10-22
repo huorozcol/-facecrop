@@ -2,6 +2,7 @@ import cv2
 import dlib
 from random import random, randint
 import datetime
+
 detector = dlib.get_frontal_face_detector()
 new_path ='./faces/'
 
@@ -11,7 +12,8 @@ def save(img,name, bbox, width=180,height=227):
     imgCrop = cv2.resize(imgCrop, (width, height))#we need this line to reshape the images
     rand_num = randint(1, 1000)
     my_time = datetime.datetime.now()
-    cv2.imwrite(f"{name}-{rand_num}.jpg", imgCrop)
+    my_time = my_time.strftime("%Y-%m-%d-%H-%M-%S-%f")
+    cv2.imwrite(f"{name}-{my_time}.jpg", imgCrop)
 
 def faces(frame):
     frame = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
@@ -25,7 +27,7 @@ def faces(frame):
         save(frame,new_path+str(counter),(abs(x1-xfit),abs(y1-yfit),x2+xfit,y2+yfit))
         save(frame, new_path + str(counter), (x1, y1 , x2 , y2))
 
-    frame = cv2.resize(frame,(800,800))
-    cv2.waitKey(0)
-    print("done saving")
+    #frame = cv2.resize(frame,(800,800))
+    #cv2.waitKey(0)
+    #print("done saving")
 
